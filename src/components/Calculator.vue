@@ -5,71 +5,77 @@
     <div @click="sign" class="btn">+/-</div>
     <div @click="percent" class="btn">%</div>
     <div class="btn operators">÷</div>
-    <div class="btn">7</div>
-    <div class="btn">8</div>
-    <div class="btn">9</div>
+    <div @click="append('7')" class="btn">7</div>
+    <div @click="append('8')" class="btn">8</div>
+    <div @click="append('9')" class="btn">9</div>
     <div class="btn operators">x</div>
-    <div class="btn">4</div>
-    <div class="btn">5</div>
-    <div class="btn">6</div>
+    <div @click="append('4')" class="btn">4</div>
+    <div @click="append('5')" class="btn">5</div>
+    <div @click="append('6')" class="btn">6</div>
     <div class="btn operators">-</div>
-    <div class="btn">1</div>
-    <div class="btn">2</div>
-    <div class="btn">3</div>
+    <div @click="append('1')" class="btn">1</div>
+    <div @click="append('2')" class="btn">2</div>
+    <div @click="append('3')" class="btn">3</div>
     <div class="btn operators">+</div>
-    <div class="btn zero">0</div>
-    <div class="btn">.</div>
+    <div @click="append('0')" class="btn zero">0</div>
+    <div @click="dot()" class="btn">.</div>
     <div class="btn operators">=</div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      current: "600"
-    }
-  },
-  methods: {
-    clear() {
-      this.current = "";
+	data() {
+		return {
+			current: ""
+		};
+	},
+	methods: {
+		clear() {
+			this.current = "";
+		},
+		sign() {
+			this.current = this.current.charAt(0) === "-" ? this.current.slice(1) : `-${this.current}`;
+		},
+		percent() {
+			this.current = `${parseFloat(this.current) / 100}`;
+		},
+		append(number) {
+			this.current = `${this.current}${number}`;
     },
-    sign() {
-      this.current = this.current.charAt(0) === '-' ?
-        this.current.slice(1) : `-${this.current}`;
-    },
-    percent() {
-      this.current = `${parseFloat(this.current) / 100}`
+    dot() {
+      if(this.current.indexOf('.') === -1) {
+        this.append('.')
+      }
     }
-  }
+	}
 };
 </script>
 
 <style scoped lang="scss">
 .calculator {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: minmax(50px, auto);
-  width: 400px;
-  margin: 0 auto;
-  font-size: 40px;
-  cursor: pointer;
-  .display {
-    grid-column: 1 / 5;
-    text-align: right;
-    background-color: #212121;
-    color: #fff;
-  }
-  .zero {
-    grid-column: 1 / 3;
-  }
-  .btn {
-    background-color: #f2f2f2;
-    border: 1px solid #999;
-  }
-  .operators {
-    background-color: #FB8C00;
-    color: #fff;
-  }
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-auto-rows: minmax(50px, auto);
+	width: 400px;
+	margin: 0 auto;
+	font-size: 40px;
+	cursor: pointer;
+	.display {
+		grid-column: 1 / 5;
+		background-color: #212121;
+		color: #fff;
+	}
+	.zero {
+		grid-column: 1 / 3;
+	}
+	.btn {
+		background-color: #f2f2f2;
+		border: 1px solid #999;
+	}
+	.operators {
+		background-color: #fb8c00;
+		color: #fff;
+	}
 }
 </style>
