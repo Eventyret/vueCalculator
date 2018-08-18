@@ -19,7 +19,7 @@
     <div @click="add" class="btn operators">+</div>
     <div @click="append('0')" class="btn zero">0</div>
     <div @click="dot()" class="btn">.</div>
-    <div class="btn operators">=</div>
+    <div @click="equal" class="btn operators">=</div>
   </div>
 </template>
 
@@ -27,7 +27,8 @@
 export default {
 	data() {
 		return {
-			current: ""
+      current: "",
+      operator: null
 		};
 	},
 	methods: {
@@ -49,12 +50,21 @@ export default {
       }
     },
     divide() {
+      this.operator = (num1, num2) => num1 / num2;
       
     },
     times() {
+      this.operator = (num1, num2) => num1 * num2
+      
+    },
+    minus() {
+      this.operator = (num1, num2) => num1 - num2
       
     },
     add() {
+      this.operator = (num1, num2) => num1 + num2
+    },
+    equal(){
       
     }
 	}
