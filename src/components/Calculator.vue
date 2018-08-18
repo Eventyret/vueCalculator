@@ -27,17 +27,13 @@
 export default {
 	data() {
 		return {
-      current: "",
-      previous: null,
-      operatorClicked: false,
-      operator: null
+			previous: null,
+			current: "",
+			operator: null,
+			operatorClicked: false
 		};
 	},
 	methods: {
-       setPrevious() {
-       this.previous = this.current;
-       this.operatorClicked = true;
-    },
 		clear() {
 			this.current = "";
 		},
@@ -48,33 +44,41 @@ export default {
 			this.current = `${parseFloat(this.current) / 100}`;
 		},
 		append(number) {
+			if (this.operatorClicked) {
+				this.current = "";
+				this.operatorClicked = false;
+			}
 			this.current = `${this.current}${number}`;
-    },
-    dot() {
-      if(this.current.indexOf('.') === -1) {
-        this.append('.')
-      }
-    },
-    divide() {
-      this.operator = (num1, num2) => num1 / num2;
-      this.setPrevious();
-    },
-    times() {
-      this.operator = (num1, num2) => num1 * num2;
-      this.setPrevious();
-    },
-    minus() {
-      this.operator = (num1, num2) => num1 - num2;
-      this.setPrevious();
-    },
-    add() {
-      this.operator = (num1, num2) => num1 + num2;
-      this.setPrevious();
-    },
-    equal(){
-      
-    }
- 
+		},
+		dot() {
+			if (this.current.indexOf(".") === -1) {
+				this.append(".");
+			}
+		},
+		setPrevious() {
+			this.previous = this.current;
+			this.operatorClicked = true;
+		},
+		divide() {
+			this.operator = (a, b) => a / b;
+			this.setPrevious();
+		},
+		times() {
+			this.operator = (a, b) => a * b;
+			this.setPrevious();
+		},
+		minus() {
+			this.operator = (a, b) => a - b;
+			this.setPrevious();
+		},
+		add() {
+			this.operator = (a, b) => a + b;
+			this.setPrevious();
+		},
+		equal() {
+			this.current = `${this.operator(parseFloat(this.current), parseFloat(this.previous))}`;
+			this.previous = null;
+		}
 	}
 };
 </script>
