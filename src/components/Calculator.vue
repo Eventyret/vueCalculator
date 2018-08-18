@@ -28,10 +28,16 @@ export default {
 	data() {
 		return {
       current: "",
+      previous: null,
+      operatorClicked: false,
       operator: null
 		};
 	},
 	methods: {
+       setPrevious() {
+       this.previous = this.current;
+       this.operatorClicked = true;
+    },
 		clear() {
 			this.current = "";
 		},
@@ -51,22 +57,24 @@ export default {
     },
     divide() {
       this.operator = (num1, num2) => num1 / num2;
-      
+      this.setPrevious();
     },
     times() {
-      this.operator = (num1, num2) => num1 * num2
-      
+      this.operator = (num1, num2) => num1 * num2;
+      this.setPrevious();
     },
     minus() {
-      this.operator = (num1, num2) => num1 - num2
-      
+      this.operator = (num1, num2) => num1 - num2;
+      this.setPrevious();
     },
     add() {
-      this.operator = (num1, num2) => num1 + num2
+      this.operator = (num1, num2) => num1 + num2;
+      this.setPrevious();
     },
     equal(){
       
     }
+ 
 	}
 };
 </script>
